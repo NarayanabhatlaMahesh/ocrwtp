@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>translation page</title>
+    </head>
+    <body>
+        {{text}}
+        <form method="post">
+            {% csrf_token %}
+            language options <input  class="form-control" id="language" aria-describedby="emailHelp" placeholder="Enter two letter language" name="language">
+            <button type="submit" name="send">select</button>
+        </form>
+    </body>
+</html>

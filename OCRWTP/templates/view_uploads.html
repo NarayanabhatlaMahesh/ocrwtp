@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>  
+        <title>
+            view files
+        </title>
+    </head>
+    <body>
+        {% for i in names %}
+        {{i}}<br/>
+        {% endfor %}
+        <br/>
+
+       
+         
+        <form method="post">
+
+            {% csrf_token %} 
+
+        
+        <select name="fname" id="fname">
+            {% for i in names %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %} 
+        </select>
+            <button type="submit" name="extract" >extract text</button>
+            
+        </form> 
+        
+
+    </body>
+</html>

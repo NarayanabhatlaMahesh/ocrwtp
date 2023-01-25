@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>
+            summary
+        </title>
+    </head>
+    <body>
+        {{text}}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="summarize">summarize</button>
+        </form>
+    </body>
+</html>
