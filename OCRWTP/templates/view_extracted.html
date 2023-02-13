@@ -9,5 +9,11 @@
         {% for i in names %}
         {{i}}<br/>
         {% endfor %}
+        <form method="post">
+            {% csrf_token %} 
+
+            <button type="submit" name="main">main</button>
+
+        </form>
     </body>
 </html>
