@@ -1,9 +1,12 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
 from  interface.models import User,Document
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 import torch
+from OCRWTP.settings import BASE_DIR
 from translate import Translator
 from django.views.decorators.csrf import csrf_protect
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import easyocr
 class user:
     def show_image(text):
@@ -11,7 +14,7 @@ class user:
     
     def extractFromImage(fullpath):
         reader = easyocr.Reader(['en'], gpu = True)
-        bounds = reader.readtext("C:\\Users\\numam\\Desktop\\OCRWTP\\docs\\"+fullpath)
+        bounds = reader.readtext(str(BASE_DIR)+"\\docs\\"+fullpath)
         data=""
         for i in bounds:
             data+=i[1]
@@ -93,7 +96,10 @@ class user:
             f=Document(user=user.username,description=request.FILES['file'].name)
             f.save()
             user.filename=request.FILES['file'].name
+            if 'main' in request.POST:
+                return redirect('upload')
             return HttpResponseRedirect('extracte')
+        
         return render(request,'file.html')
     def handle_uploaded_file(f):
         with open(r"docs\\" + f.name,'wb+') as destination:
@@ -105,6 +111,8 @@ class user:
             user.text=user.extractFromImage(user.filename)
             docs.filter(user=user.username,description=user.filename).update(text=user.text)
             return HttpResponseRedirect('summarize')
+        if 'main' in request.POST:
+            return redirect('upload')
         li=[]
         li.append(user.filename)
         return render(request,'view_uploads.html',{'names':li})
@@ -121,6 +129,8 @@ class user:
                 user.filename=request.POST['fname']
                 user.text=user.extractFromImage(user.filename)
                 return HttpResponseRedirect('summarize')
+            if 'main' in request.POST:
+                return redirect('upload')
         return render(request,'view_uploads.html',{'names':li})
 # -------------------------------------------------------------------------------------------------
 
@@ -137,6 +147,9 @@ class user:
                 print(user.summary)
                 docs.filter(user=user.username,description=user.filename).update(summary=user.summary)
                 return HttpResponseRedirect('translate')
+            if 'main' in request.POST:
+                print('in summarize main')
+                return redirect('upload')
         return render(request,'summarize.html',{'text':user.text})
     translated=""
     def translate(request):
@@ -147,6 +160,9 @@ class user:
                 user.translated=user.translatea(user.summary[0],lang)
                 docs.filter(user=user.username,description=user.filename).update(translated=user.translated)
                 return render(request,'translate.html',{'text':user.translated})
+            if 'main' in request.POST:
+                print('in translate main')
+                return redirect('upload')
         return render(request,'translate.html')
     
 
@@ -172,6 +188,10 @@ class user:
         for i in docs:
             if i.user==user.username:
                 li.append(i.summary)
+        if request.method=='POST':
+            if 'main' in request.POST:
+                print('in summarize main')
+                return redirect('upload')
         return render(request,'view_summaries.html',{'names':li})
     def view_translations(request):
         docs=Document.objects.all()
@@ -179,6 +199,10 @@ class user:
         for i in docs:
             if i.user==user.username:
                 li.append(i.translated)
+        if request.method == "POST":
+            if 'main' in request.POST:
+                print('in translation main')
+                return redirect('upload')
         return render(request,'view_translations.html',{'names':li})
     def view_extracted(request):
         docs=Document.objects.all()
@@ -186,5 +210,8 @@ class user:
         for i in docs:
             if i.user==user.username:
                 li.append(i.text)
+        if request.method=='POST':
+            if 'main' in request.POST:
+                return redirect('upload')
         return render(request,'view_extracted.html',{'names':li})
     
