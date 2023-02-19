@@ -96,7 +96,7 @@ class user:
             f=Document(user=user.username,description=request.FILES['file'].name)
             f.save()
             user.filename=request.FILES['file'].name
-            if 'main' in request.POST:
+            if 'menu' in request.POST:
                 return redirect('upload')
             return HttpResponseRedirect('extracte')
         
@@ -111,7 +111,7 @@ class user:
             user.text=user.extractFromImage(user.filename)
             docs.filter(user=user.username,description=user.filename).update(text=user.text)
             return HttpResponseRedirect('summarize')
-        if 'main' in request.POST:
+        if 'menu' in request.POST:
             return redirect('upload')
         li=[]
         li.append(user.filename)
@@ -129,7 +129,9 @@ class user:
                 user.filename=request.POST['fname']
                 user.text=user.extractFromImage(user.filename)
                 return HttpResponseRedirect('summarize')
-            if 'main' in request.POST:
+        if request.method=="POST":
+            if 'menu' in request.POST:
+                print('in viewing uploads')
                 return redirect('upload')
         return render(request,'view_uploads.html',{'names':li})
 # -------------------------------------------------------------------------------------------------
@@ -147,7 +149,7 @@ class user:
                 print(user.summary)
                 docs.filter(user=user.username,description=user.filename).update(summary=user.summary)
                 return HttpResponseRedirect('translate')
-            if 'main' in request.POST:
+            if 'menu' in request.POST:
                 print('in summarize main')
                 return redirect('upload')
         return render(request,'summarize.html',{'text':user.text})
@@ -160,7 +162,7 @@ class user:
                 user.translated=user.translatea(user.summary[0],lang)
                 docs.filter(user=user.username,description=user.filename).update(translated=user.translated)
                 return render(request,'translate.html',{'text':user.translated})
-            if 'main' in request.POST:
+            if 'menu' in request.POST:
                 print('in translate main')
                 return redirect('upload')
         return render(request,'translate.html')
@@ -189,7 +191,7 @@ class user:
             if i.user==user.username:
                 li.append(i.summary)
         if request.method=='POST':
-            if 'main' in request.POST:
+            if 'menu' in request.POST:
                 print('in summarize main')
                 return redirect('upload')
         return render(request,'view_summaries.html',{'names':li})
@@ -200,7 +202,7 @@ class user:
             if i.user==user.username:
                 li.append(i.translated)
         if request.method == "POST":
-            if 'main' in request.POST:
+            if 'menu' in request.POST:
                 print('in translation main')
                 return redirect('upload')
         return render(request,'view_translations.html',{'names':li})
@@ -210,8 +212,8 @@ class user:
         for i in docs:
             if i.user==user.username:
                 li.append(i.text)
-        if request.method=='POST':
-            if 'main' in request.POST:
+        if request.method == "POST":
+            if 'menu' in request.POST:
+                print('in extracted main')
                 return redirect('upload')
         return render(request,'view_extracted.html',{'names':li})
-    
