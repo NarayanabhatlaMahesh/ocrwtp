@@ -1,8 +1,12 @@
 <title>uploading</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
 <form method="post" enctype="multipart/form-data">
     <p>
         {% csrf_token %}
-s
+
+    <label for="id_description">Description:</label>
+    <input type="text" name="description" maxlength="255" id="id_description">
     
     
   </p>
@@ -16,6 +20,5 @@ s
       
     
   </p>
-    <button type="submit">Upload</button>
-    <button type="submit" name="main">main</button>
+    <button class="btn btn-primary" type="submit">Upload</button>
   </form>

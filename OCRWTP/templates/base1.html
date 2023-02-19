@@ -1,24 +1,110 @@
+{% load static %}
+
 <!doctype html>
-<html>
+<html> 
     <head>
         <meta charset="utf-8">
         <meta name="csrf_token" content="{{ csrf_token }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  
-        <title>
-            HomeOCR
-        </title>
+    <title>HOME OCRWTP</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+
+    <title>HomeOCR</title>
     </head>
     <body>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <section id="nav-bar">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img  src="{% static 'logo.png' %}"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto ">
+                  <li class="nav-item">
+                    <a class="nav-link"  href="#">HOME</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">FEATURES</a>
+                  </li>
+                  <li class="nav-item">    
+                    <a class="nav-link" href="#">ABOUT US</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">TESTIMONIALS</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">CONTACT</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </section>
+<!-----------------------banner section------------------------------->
+
+<section id="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="promo-title"> OPTICAL CHARACTER RECOGNITION WITH TEXT PROCESSING</p>
+                <P> OCRWTP is a web application which extract text information from image which is printed one and converts image text to summarized data. It has an additional feature to translate the summarized text.</P>
+                <a href="#"><img src="{% static 'play-button.png' %}" class="play-btn"> Watch tutorial </a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{% static 'ocr.png' %}" class="img-fluid">
+            </div>
+        </div>
+    </div> 
+    <img src="{% static 'cl2.png' %}" class="fadeOut">
+</section>
+
+<!-----------------------------banner upload---------------------------------------------->
+<div class="section-one">
+    <h2 class="section-one__title">UPLOAD</h2>
+    <p class="section-one__descr">Upload an image which is printed form by scanning and saving it on the desktop. make sure the image is only in printed format, no written image is accepted. It supports JPG, JPEG, PNG and BMP files. </p><br>
+
+    <form method="post">
+        <div class="text-center">
+      {%csrf_token %} 
+        <button type="submit" class="btn btn-primary" style="background-color: #00755e;" name='upload'>UPLOAD</button>
+        &nbsp;
+        <button type="submit" class="btn btn-secondary" style="background-color: #3b7a57;"name="view_upload">view previous uploads</button>
+        </div>
+    </form>
+    <!-- begin Separator -->
+    <div class="separator">
+
+      <!-- <svg class="separator__svg" width="100%" height="400" viewBox="0 0 100 100" preserveAspectRatio="none" fill="#008b8b" version="1.1" xmlns="http://www.w3.org/2000/svg"> -->
+         <path d="M 100 100 V 10 L 0 100"/>
+         <path d="M 30 73 L 100 18 V 10 Z" fill="#008b8b" stroke-width="0"/>
+        </svg>
+    </div>
+    <!-- end Separator -->
+  </div>
+<div class="section-two">
+    <h2 class="section-two__title">SUMMARY</h2>
+    <p class="section-two__descr">The extracted text from the uploaded image is given otput as a summarized text in few linesof text, which is easy to understand and interpret.</p><br>
+  <form method="post">
+    {% csrf_token %}
+    <div class="text-center">
+      <button type="submit" class="btn btn-danger" name="view_extracted">view extracted</button>
+      &nbsp;
+      <button type="submit" class="btn btn-danger" name="view_summaries">view summaries</button>
+     </div>
+  </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary" name='upload'>upload</button><br/>
-            <button type="submit" class="btn btn-secondary" name="view_upload">view previous uploads</button><br/>
+            
+            
             <button type="submit" class="btn btn-success" name="view_translations">view translations</button><br/>
-            <button type="submit" class="btn btn-danger" name="view_summaries">view summaries</button><br/>
+            
             <button type="submit" class="btn btn-danger" name="view_extracted">view extracted</button><br/>
         </form>
     </body>
