@@ -57,6 +57,8 @@ padding-left: 20px;
 .promo-title
 {
     font-size: 40px;
+    letter-spacing: 5px;
+    word-spacing: 13px;
     font-weight: 600;
     margin-top: 100px;
 }
@@ -89,10 +91,11 @@ padding-left: 20px;
 .section-one {
     background-image: linear-gradient(to right,#e0ffff, #008b8b);
     position: relative;
-    padding: 90px 0 290px;
+    padding: 90px 0 90px;
 }
     .section-one__title {
       color: #004953;
+      letter-spacing: 5px;  
       font-size: 35px;
       margin-bottom: 30px;
       text-align: center;
@@ -107,8 +110,8 @@ padding-left: 20px;
     }
   
   
-.section-two {
-    background-color: linear-gradient(to right,#e0ffff, #008b8b);
+  .section-two {
+    background-color:  #008b8b;
     padding: 50px 0 200px;
     position: relative;
     z-index: 10;
@@ -116,10 +119,10 @@ padding-left: 20px;
 }
     .section-two__title {
       color: #004953;
+      letter-spacing: 5px;
       font-size: 35px;
       margin-bottom: 25px;
       text-align: center;
-      margin-top: -5%;
     }
     .section-two__descr {
       color: #004953;
@@ -130,6 +133,30 @@ padding-left: 20px;
       text-align: center;
       margin-bottom: 0px;
     }
+    
+.section-three {
+  background-color: #87CEFA;
+  padding: 50px 0 200px;
+  position: relative;
+  z-index: 10;
+  margin: 0;
+}
+  .section-three__title {
+    color: #004953;
+    font-size: 35px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  .section-three__descr {
+    color: #004953;
+    font-size: 16px;
+    line-height: 1.4;
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+
   
   /* -------------------------------------------------------------------------
      begin Separator
