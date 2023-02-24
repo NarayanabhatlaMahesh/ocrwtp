@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import easyocr
+
 class user:
     def show_image(text):
         return text
@@ -29,7 +30,6 @@ class user:
         translated = model.generate(**batch)
         tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
         text=tgt_text
-
         return text
 
     def translatea(text,lang):
@@ -90,15 +90,19 @@ class user:
     def upload_file(request):
         form = Document()
         if request.method == "POST":
-            form = Document(request.POST,request.FILES)
-            #if form.is_valid():
-            user.handle_uploaded_file(request.FILES['file'])
-            f=Document(user=user.username,description=request.FILES['file'].name)
-            f.save()
-            user.filename=request.FILES['file'].name
             if 'menu' in request.POST:
                 return redirect('upload')
-            return HttpResponseRedirect('extracte')
+        if request.method == "POST":
+            if 'upload' in request.POST:
+                form = Document(request.POST,request.FILES)
+                #if form.is_valid():
+                user.handle_uploaded_file(request.FILES['file'])
+                
+                f=Document(user=user.username,description=request.FILES['file'].name)
+                f.save()
+                user.filename=request.FILES['file'].name
+                return HttpResponseRedirect('extracte')
+        
         
         return render(request,'file.html')
     def handle_uploaded_file(f):
@@ -160,7 +164,7 @@ class user:
             if 'send' in request.POST:
                 lang=request.POST['language']
                 user.translated=user.translatea(user.summary[0],lang)
-                docs.filter(user=user.username,description=user.filename).update(translated=user.translated)
+                docs.filter(user=user.username,description=user.filename,summary=user.summary).update(translated=user.translated)
                 return render(request,'translate.html',{'text':user.translated})
             if 'menu' in request.POST:
                 print('in translate main')
@@ -187,33 +191,39 @@ class user:
     def view_summaries(request):
         docs=Document.objects.all()
         li=[]
+        fna=[]
         for i in docs:
             if i.user==user.username:
                 li.append(i.summary)
+                fna.append(i.description)
         if request.method=='POST':
             if 'menu' in request.POST:
                 print('in summarize main')
                 return redirect('upload')
-        return render(request,'view_summaries.html',{'names':li})
+        return render(request,'view_summaries.html',{'names':zip(li,fna)})
     def view_translations(request):
         docs=Document.objects.all()
         li=[]
+        fna=[]
         for i in docs:
             if i.user==user.username:
                 li.append(i.translated)
+                fna.append(i.description)
         if request.method == "POST":
             if 'menu' in request.POST:
                 print('in translation main')
                 return redirect('upload')
-        return render(request,'view_translations.html',{'names':li})
+        return render(request,'view_translations.html',{'names':zip(li,fna)})
     def view_extracted(request):
         docs=Document.objects.all()
         li=[]
+        fna=[]
         for i in docs:
             if i.user==user.username:
                 li.append(i.text)
+                fna.append(i.description)
         if request.method == "POST":
             if 'menu' in request.POST:
                 print('in extracted main')
                 return redirect('upload')
-        return render(request,'view_extracted.html',{'names':li})
+        return render(request,'view_extracted.html',{'names':zip(li,fna)})
