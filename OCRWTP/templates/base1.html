@@ -101,16 +101,28 @@
 <div class="section-three">
   <h2 class="section-three__title">TRANSLATION</h2>
   <p class="section-three__descr">At last we have an additional feature which provides translation to the summarized text. The translation can be done in as many as upto 20 languages. </p><br>
-<form method="post">
-     <div class="text-center">
-  {%csrf_token %} 
-    <button type="submit" class="btn btn-success" style="background-color: #01796f;" name="view_translations">view translation</button>
-   </div>
-</form>
+      <form method="post">
+       <div class="text-center">
+           {%csrf_token %} 
+             <button type="submit" class="btn btn-success" style="background-color: #01796f;" name="view_translations">view translation</button>
+        </div>
+      </form>
 </div>
-</section>
+<table>
+    <tr>
+<th style="background-color: #45bbb5; padding: 90px 150px;
+position: relative; ">ABOUT US</th><th style="background-color: #45bbb5; padding: 70px 40px;
+  position: relative;">CONTACT</th></tr>
+<tr>
+<td style="background-color: #45bbb5; 
+position: relative;">We, The students of VIGNANA BHARATHI INSTITUTE OF TECHNOLOGY purursuing B.tech in the field of Information Technology with the guidance of our Department HOD Dr.K.Kalaivani, Coordinator Pesaru Swetha, Guide Associate prof. Sridhar Reddy and Finally Thank our Principal P.Srinivas for giving us such a nice oppurtunity to nurture ourselves and learn about these technologolies, also work on them.</td>
+
+<td style="background-color: #45bbb5; ">numamahesh2000@gmail.com &nbsp; sameenanaheed786@gmail.com &nbsp; vuttejamramya2000@gmail.com</td>
+</tr>
+</table>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         
-    </body>
+    </body>
 </html>
