@@ -18,7 +18,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><img  src="{% static 'logo.png' %}"></a>
+              <a class="navbar-brand" href="#"><img  src="{% static 'OCRWTP-logos_transparent.png' %}"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
               </button>
@@ -28,16 +28,16 @@
                     <a class="nav-link"  href="#">HOME</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">FEATURES</a>
+                    <a class="nav-link" href="sec1" class="btn">FEATURES</a>
                   </li>
                   <li class="nav-item">    
-                    <a class="nav-link" href="#">ABOUT US</a>
+                    <a class="nav-link" href="ABOUT US">ABOUT US</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">TESTIMONIALS</a>
+                    <a class="nav-link" href="TESTIMONIALS">TESTIMONIALS</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">CONTACT</a>
+                    <a class="nav-link" href="CONTACT">CONTACT</a>
                   </li>
                 </ul>
               </div>
@@ -64,6 +64,9 @@
 
 <!-----------------------------banner upload---------------------------------------------->
 <div class="section-one">
+  <section id="features">
+    <div class="container text-center">
+      <h1 class="title" class="sec1" id="btn" style="color: #01796f;">FEATURES</h1>
     <h2 class="section-one__title">UPLOAD</h2>
     <p class="section-one__descr">Upload an image which is printed form by scanning and saving it on the desktop. make sure the image is only in printed format, no written image is accepted. It supports JPG, JPEG, PNG and BMP files. </p><br>
 
@@ -75,7 +78,7 @@
         <button type="submit" class="btn btn-secondary" style="background-color: #3b7a57;"name="view_upload">view previous uploads</button>
         </div>
     </form>
-    {%csrf_token %}
+  </div>
     <!-- begin Separator -->
     <!-- <svg class="separator__svg" width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none" fill="#008b8b" version="1.1" xmlns="http://www.w3.org/2000/svg"> -->
        <path d="M 100 100 V 10 L 0 100"/>
@@ -105,6 +108,7 @@
    </div>
 </form>
 </div>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         
