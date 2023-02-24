@@ -116,7 +116,7 @@ padding-left: 20px;
 }
     .section-one__title {
       color: #004953;
-      letter-spacing: 5px;  
+      letter-spacing: 8px;  
       font-size: 35px;
       margin-bottom: 30px;
       text-align: center;
@@ -135,12 +135,11 @@ padding-left: 20px;
     background-image: linear-gradient(to right, #008b8b, #e0ffff);
     padding: 50px 0 200px;
     position: relative;
-    z-index: -1;
     margin: 0;
 }
     .section-two__title {
       color: #007474;
-      letter-spacing: 5px;
+      letter-spacing: 8px;
       font-size: 35px;
       margin-bottom: 25px;
       text-align: center;
@@ -159,11 +158,11 @@ padding-left: 20px;
   background-color: #87CEFA;
   padding: 50px 0 200px;
   position: relative;
-  z-index: -1;
   margin: 0;
 }
   .section-three__title {
     color: #004953;
+    letter-spacing: 8px;
     font-size: 35px;
     margin-bottom: 25px;
     text-align: center;
@@ -177,6 +176,8 @@ padding-left: 20px;
     text-align: center;
     margin-bottom: 0px;
   }
+ 
+
 
   
   /* -------------------------------------------------------------------------
@@ -212,4 +213,6 @@ padding-left: 20px;
       }
     
   }
-  
+  .ok{
+    text-align: center;
+}
