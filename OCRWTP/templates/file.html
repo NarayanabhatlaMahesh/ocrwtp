@@ -1,24 +1,73 @@
-<title>uploading</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+{% load static %}
 
-<form method="post" enctype="multipart/form-data">
-    <p>
-        {% csrf_token %}
 
-    <label for="id_description">Description:</label>
-    <input type="text" name="description" maxlength="255" id="id_description">
-    
-    
-  </p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>uploading</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
 
-  
-  <p>
-    <label for="id_document">Document:</label>
-    <input type="file" name="file" required="" id="id_document">
-    
-    
-      
-    
-  </p>
-    <button class="btn btn-primary" type="submit">Upload</button>
-  </form>
+  <body>
+    <section id="nav-bar">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"><img  src="{% static 'OCRWTP-logos_transparent.png' %}"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto ">
+                  <li class="nav-item">
+                    <a class="nav-link"  href="#">HOME</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="sec1" class="btn">FEATURES</a>
+                  </li>
+                  <li class="nav-item">    
+                    <a class="nav-link" href="ABOUT US">ABOUT US</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="TESTIMONIALS">TESTIMONIALS</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="CONTACT">CONTACT</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </section>
+  <!-----------------------banner section------------------------------->
+
+<section id="banner">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+              <p>
+                  {% csrf_token %}
+          
+              <label for="id_description" style="color: black;">Description:</label>
+              <input type="text" name="description" maxlength="255" id="id_description">
+            </p>
+            
+            <p>
+              <label for="id_document" style="color: black;">Document:</label>
+              <input type="file" name="file" required="" id="id_document">
+            </p>
+              <button class="btn btn-primary" type="submit">Upload</button>
+            </form>
+          </div>
+         
+      </div>
+  </div> 
+  <img src="{% static 'cl2.png' %}" class="fadeOut">
+</section>
+
+ 
+
+  </html>
