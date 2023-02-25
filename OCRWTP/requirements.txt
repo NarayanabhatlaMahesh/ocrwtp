@@ -1,0 +1,6 @@
+django
+torch
+transformers
+translate
+easyocr
+sentencepiece

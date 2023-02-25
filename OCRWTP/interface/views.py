@@ -97,11 +97,13 @@ class user:
                 form = Document(request.POST,request.FILES)
                 #if form.is_valid():
                 user.handle_uploaded_file(request.FILES['file'])
-                
-                f=Document(user=user.username,description=request.FILES['file'].name)
-                f.save()
-                user.filename=request.FILES['file'].name
-                return HttpResponseRedirect('extracte')
+                if request.FILES['file'].name not in Document.objects.all().values('description'):
+                    f=Document(user=user.username,description=request.FILES['file'].name)
+                    f.save()
+                    user.filename=request.FILES['file'].name
+                    return HttpResponseRedirect('extracte')
+                else :
+                    return redirect('upload')
         
         
         return render(request,'file.html')
@@ -169,7 +171,7 @@ class user:
             if 'menu' in request.POST:
                 print('in translate main')
                 return redirect('upload')
-        return render(request,'translate.html')
+        return render(request,'translate.html',{'text':user.summary})
     
 
 
