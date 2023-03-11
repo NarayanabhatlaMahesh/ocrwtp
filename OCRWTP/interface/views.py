@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import easyocr
+import nltk
 
 class user:
     def show_image(text):
@@ -26,10 +27,18 @@ class user:
         device ='cpu'
         tokenizer = PegasusTokenizer.from_pretrained(model_name)
         model = PegasusForConditionalGeneration.from_pretrained(model_name).to(device)
-        batch = tokenizer(src_text, truncation=True, padding='longest', return_tensors="pt").to(device)
-        translated = model.generate(**batch)
-        tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
-        text=tgt_text
+        tok=nltk.word_tokenize(src_text)
+        iters=round(len(tok)/250)
+        t=""
+        for i in range(iters):
+            sen=""
+            for i in tok[i:i+250]:
+                sen+=i+" "
+                batch = tokenizer(sen, truncation=True, padding='longest', return_tensors="pt").to(device)
+                translated = model.generate(**batch)
+                tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
+                t+=tgt_text
+        text=t
         return text
 
     def translatea(text,lang):
