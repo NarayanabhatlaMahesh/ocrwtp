@@ -22,7 +22,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
-      run: |
+      run:
+        pip freeze > requirements.txt|
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
