@@ -9,6 +9,7 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import easyocr
 import nltk
+import math
 
 class user:
     def show_image(text):
@@ -28,20 +29,21 @@ class user:
         tokenizer = PegasusTokenizer.from_pretrained(model_name)
         model = PegasusForConditionalGeneration.from_pretrained(model_name).to(device)
         tok=nltk.word_tokenize(src_text)
-        iters=round(len(tok)/250)
+        iters=math.ceil(len(tok)/250)
         t=""
         for i in range(iters):
             sen=""
             for i in tok[i:i+250]:
                 sen+=i+" "
-                batch = tokenizer(sen, truncation=True, padding='longest', return_tensors="pt").to(device)
-                translated = model.generate(**batch)
-                tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
-                t+=tgt_text
+            batch = tokenizer(sen, truncation=True, padding='longest', return_tensors="pt").to(device)
+            translated = model.generate(**batch)
+            tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
+            t+=tgt_text[0]
         text=t
         return text
 
     def translatea(text,lang):
+        print(text)
         translator = Translator(lang)
         text=translator.translate(text)
         return text
@@ -174,7 +176,7 @@ class user:
         if request.method=='POST':
             if 'send' in request.POST:
                 lang=request.POST['language']
-                user.translated=user.translatea(user.summary[0],lang)
+                user.translated=user.translatea(user.summary,lang)
                 docs.filter(user=user.username,description=user.filename,summary=user.summary).update(translated=user.translated)
                 return render(request,'translate.html',{'text':user.translated})
             if 'menu' in request.POST:
