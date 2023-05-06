@@ -9,6 +9,7 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import easyocr
 import nltk
+from nltk.tokenize import word_tokenize as wt
 import math
 
 class user:
@@ -31,10 +32,21 @@ class user:
         tok=nltk.word_tokenize(src_text)
         iters=math.ceil(len(tok)/250)
         t=""
-        for i in range(iters):
-            sen=""
-            for i in tok[i:i+250]:
-                sen+=i+" "
+
+        op=wt(src_text)
+        # print("context is big")
+        b=0
+        li=[]
+        for i in range(int(len(op)/275)+1):
+            if b > (len(op)-275):
+                li.append(op[b:len(op)])
+            else:
+                li.append(op[b:b+275])
+            # print("in segmenting context ---",i)
+            b+=275
+
+        for i in range(len(li)):
+            sen=" ".join(li[i])
             batch = tokenizer(sen, truncation=True, padding='longest', return_tensors="pt").to(device)
             translated = model.generate(**batch)
             tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
